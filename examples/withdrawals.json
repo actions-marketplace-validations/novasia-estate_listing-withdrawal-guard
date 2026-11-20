@@ -1,0 +1,6 @@
+[
+  { "id": "SEA-101", "withdrawnOn": "2026-01-14" },
+  { "id": "SEA-102", "withdrawnOn": "2026-02-03" },
+  { "id": "SEA-103", "withdrawnOn": "2026-02-05", "reinstatedOn": "2026-02-19" },
+  { "id": "SEA-104", "withdrawnOn": "2026-02-05" }
+]

@@ -1,0 +1,24 @@
+name: Listing Withdrawal Guard
+description: Catch withdrawn listings in a public export and report the affected IDs.
+author: NovAsia Estate
+branding:
+  icon: shield
+  color: blue
+inputs:
+  current:
+    description: Workspace-relative path to the candidate listing snapshot.
+    required: true
+  withdrawals:
+    description: Workspace-relative path to the authoritative withdrawal register.
+    required: true
+  previous:
+    description: Workspace-relative path to the preceding published snapshot.
+    required: false
+outputs:
+  violation-count:
+    description: Number of withdrawn listings in a public state.
+  reappeared-count:
+    description: Number of violations absent or non-public in the previous snapshot.
+runs:
+  using: node24
+  main: src/action.cjs

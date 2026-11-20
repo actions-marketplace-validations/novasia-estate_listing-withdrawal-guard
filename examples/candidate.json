@@ -1,0 +1,7 @@
+[
+  { "id": "SEA-101", "status": "listed", "notes": "synthetic payload" },
+  { "id": "SEA-102", "status": "reserved" },
+  { "id": "SEA-103", "status": "listed" },
+  { "id": "SEA-104", "status": "withdrawn" },
+  { "id": "SEA-201", "status": "listed" }
+]

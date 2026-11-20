@@ -1,0 +1,34 @@
+name: Verify
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - run: node --test
+      - id: clean
+        uses: ./
+        with:
+          current: examples/clean.json
+          withdrawals: examples/withdrawals.json
+      - id: blocked
+        continue-on-error: true
+        uses: ./
+        with:
+          current: examples/candidate.json
+          previous: examples/previous.json
+          withdrawals: examples/withdrawals.json
+      - name: Verify action outcomes
+        env:
+          CLEAN_OUTCOME: ${{ steps.clean.outcome }}
+          CLEAN_COUNT: ${{ steps.clean.outputs.violation-count }}
+          BLOCKED_OUTCOME: ${{ steps.blocked.outcome }}
+          BLOCKED_COUNT: ${{ steps.blocked.outputs.violation-count }}
+          REAPPEARED_COUNT: ${{ steps.blocked.outputs.reappeared-count }}
+        run: |
+          test "$CLEAN_OUTCOME:$CLEAN_COUNT" = success:0
+          test "$BLOCKED_OUTCOME:$BLOCKED_COUNT:$REAPPEARED_COUNT" = failure:2:1
